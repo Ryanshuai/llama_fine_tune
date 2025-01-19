@@ -1,0 +1,22 @@
+[
+  {
+    "instruction": "Tell me a joke about programming.",
+    "input": "",
+    "output": "Why do programmers prefer dark mode? Because light attracts bugs!"
+  },
+  {
+    "instruction": "Translate the following English text to French",
+    "input": "Hello, how are you?",
+    "output": "Bonjour, comment allez-vous?"
+  },
+  {
+    "instruction": "Calculate the sum of the following numbers",
+    "input": "23, 45, 67, 89",
+    "output": "The sum is 224"
+  },
+  {
+    "instruction": "Explain what recursion is in programming",
+    "input": "",
+    "output": "Recursion is a programming concept where a function calls itself to solve a smaller instance of the same problem. It's like a Russian nesting doll - each doll contains a smaller version of itself until you reach the smallest one."
+  }
+]
