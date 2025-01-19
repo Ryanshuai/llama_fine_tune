@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
     tokenizer = AutoTokenizer.from_pretrained("unsloth/Llama-3.2-3B-Instruct")
 
-    data_path = "resources/alpaca_sample.json"
+    data_path = "../resources/alpaca_sample.json"
 
     # tokenizer = LlamaTokenizer.from_pretrained("unsloth/Llama-3.2-3B-Instruct")
     dataset = AlpacaDataset(data_path, tokenizer=tokenizer)
