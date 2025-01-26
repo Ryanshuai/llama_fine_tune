@@ -60,8 +60,10 @@ class AlpacaDataset(Dataset):
 
     def __init__(self, data_path: str, tokenizer):
         super().__init__()
+        list_data_dict = []
         with open(data_path, 'r') as f:
-            list_data_dict = json.load(f)
+            for line in f:
+                list_data_dict.append(json.loads(line))
 
         prompt_input, prompt_no_input = PROMPT_DICT["prompt_input"], PROMPT_DICT["prompt_no_input"]
         sources = [
@@ -80,25 +82,6 @@ class AlpacaDataset(Dataset):
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
         return dict(input_ids=self.input_ids[i], labels=self.labels[i])
 
-
-@dataclass
-class AlpacaDataCollator:
-    """Collate examples for supervised fine-tuning."""
-    tokenizer: any
-
-    def __call__(self, instances: Sequence[Dict]) -> Dict[str, torch.Tensor]:
-        input_ids, labels = tuple([instance[key] for instance in instances] for key in ("input_ids", "labels"))
-        input_ids = torch.nn.utils.rnn.pad_sequence(
-            input_ids, batch_first=True, padding_value=self.tokenizer.pad_token_id
-        )
-        labels = torch.nn.utils.rnn.pad_sequence(
-            labels, batch_first=True, padding_value=IGNORE_INDEX
-        )
-        return dict(
-            input_ids=input_ids,
-            labels=labels,
-            attention_mask=input_ids.ne(self.tokenizer.pad_token_id),
-        )
 
 
 if __name__ == '__main__':
