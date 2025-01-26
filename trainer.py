@@ -15,8 +15,8 @@ class Trainer:
     def __init__(self):
         self.output_dir = "./checkpoints"
         self.num_epochs = 3
-        self.batch_size = 4
-        self.gradient_accumulation_steps = 8
+        self.batch_size = 32
+        self.gradient_accumulation_steps = 2
         self.learning_rate = 2e-5
         self.weight_decay = 0.01
         self.warmup_ratio = 0.1
@@ -34,7 +34,7 @@ class Trainer:
                                      collate_fn=self.data_collator)
 
         self.optimizer = AdamW(model.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay)
-        self.scaler = torch.cuda.amp.GradScaler()
+        self.scaler = torch.amp.GradScaler('cuda')
         self.step = 0
 
         max_train_steps = len(self.dataloader) // self.gradient_accumulation_steps * self.num_epochs
